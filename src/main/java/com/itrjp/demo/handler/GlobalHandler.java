@@ -1,6 +1,7 @@
 package com.itrjp.demo.handler;
 
 import com.itrjp.demo.exception.BizException;
+import com.itrjp.demo.result.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalHandler {
     @ExceptionHandler({BizException.class})
-    public ResponseEntity<String> handlerBizException(BizException exception) {
+    public ResponseEntity<Result<Void>> handlerBizException(BizException exception) {
         log.error("BizException, message: {}", exception.getMessage());
-        return ResponseEntity.status(400).body(exception.getMsg());
+        return ResponseEntity
+                .status(400)
+                .body(Result.error(exception.getCode(), exception.getMsg()));
     }
 }

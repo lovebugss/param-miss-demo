@@ -2,6 +2,7 @@ package com.itrjp.demo.controller;
 
 import com.itrjp.demo.pojo.UserDeleteParam;
 import com.itrjp.demo.pojo.UserUpdateParam;
+import com.itrjp.demo.result.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,15 +21,21 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("api/user")
 public class UserController {
+    /**
+     * 此方法请求参数使用了{@link com.itrjp.demo.valid.Filled}注解.
+     * @param param
+     * @return
+     */
     @PostMapping("update")
-    public String update(@Valid UserUpdateParam param) {
+    public Result<String> update(@Valid UserUpdateParam param) {
         log.info("UserController#update, param: {}", param);
-        return "ok";
+        return Result.ok("ok");
     }
 
+
     @PostMapping("delete")
-    public String delete(UserDeleteParam param) {
+    public Result<String> delete(UserDeleteParam param) {
         log.info("UserController#delete, param: {}", param);
-        return "ok";
+        return Result.ok("ok");
     }
 }

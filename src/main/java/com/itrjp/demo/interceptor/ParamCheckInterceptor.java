@@ -28,7 +28,20 @@ public class ParamCheckInterceptor implements HandlerInterceptor {
         if (appId == null || appId.length() == 0) {
             throw new BizException(10001, "appId 不能为空!");
         }
-        return true;
+
+        return remoteCall();
     }
 
+    /**
+     * 模拟远程调用
+     */
+    private boolean remoteCall() {
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            log.warn("线程终止", e);
+            return false;
+        }
+        return true;
+    }
 }
